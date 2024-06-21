@@ -13,23 +13,20 @@ public class Practicum {
         int daysBeforeSalary = scanner.nextInt();
 
         while (true) {
-            // вынесите печать меню в метод printMenu, здесь останется только его вызов
             printMenu();
-
             int command = scanner.nextInt();
 
             if (command == 1) {
-                // вынесите обработку команды в метод convert, здесь вызовите его
                 convert(scanner, moneyBeforeSalary);
             } else if (command == 2) {
-                // вынесите обработку команды в метод getAdvice, здесь вызовите его
                 getAdvice(moneyBeforeSalary, daysBeforeSalary);
             } else if (command == 3) {
-                addExpense(scanner, moneyBeforeSalary, expenses);
+                moneyBeforeSalary = saveExpense(scanner, moneyBeforeSalary, expenses);
             } else if (command == 4) {
-                showAllExpenses(expenses);
+                printAllExpenses(expenses);
             } else if (command == 5) {
-                getMaxExpense(expenses);
+                double maxExpense = findMaxExpense(expenses);
+                System.out.println("Самая большая сумма расходов на этой неделе составила " + maxExpense + " руб.");
             } else if (command == 0) {
                 System.out.println("Выход");
                 break;
@@ -39,7 +36,6 @@ public class Practicum {
         }
     }
 
-    // объявите и реализуйте метод printMenu, который печатает меню
     public static void printMenu() {
         System.out.println("Что вы хотите сделать? ");
         System.out.println("1 - Конвертировать валюту");
@@ -50,11 +46,11 @@ public class Practicum {
         System.out.println("0 - Выход");
     }
 
-    // объявите и реализуйте метод convert, который конвертирует валюты
     public static void convert(Scanner scanner, double moneyBeforeSalary) {
         double rateUSD = 94.8;
         double rateEUR = 103.8;
         double rateCNY = 13.1;
+
         System.out.println("Ваши сбережения: " + moneyBeforeSalary + " RUB");
         System.out.println("В какую валюту хотите конвертировать? Доступные варианты: 1 - USD, 2 - EUR, 3 - CNY.");
         int currency = scanner.nextInt();
@@ -69,11 +65,10 @@ public class Practicum {
         }
     }
 
-    // объявите и реализуйте метод getAdvice, который даёт совет
     public static void getAdvice(double moneyBeforeSalary, int daysBeforeSalary) {
         if (moneyBeforeSalary < 3000) {
             System.out.println("Сегодня лучше поесть дома. Экономьте, и вы дотянете до зарплаты!");
-        } else if (moneyBeforeSalary < 10000) {
+        } else if (moneyBeforeSalary < 10000){
             if (daysBeforeSalary < 10) {
                 System.out.println("Можно заказать пиццу!");
             } else {
@@ -94,7 +89,7 @@ public class Practicum {
         }
     }
 
-    public static void addExpense(Scanner scanner, double moneyBeforeSalary, double[] expenses) {
+    public static double saveExpense(Scanner scanner, double moneyBeforeSalary, double[] expenses) {
         System.out.println("За какой день вы хотите ввести трату: 1-ПН, 2-ВТ, 3-СР, 4-ЧТ, 5-ПТ, 6-СБ, 7-ВС?");
         int day = scanner.nextInt();
         System.out.println("Введите размер траты:");
@@ -105,21 +100,23 @@ public class Practicum {
         if (moneyBeforeSalary < 1000) {
             System.out.println("На вашем счету осталось совсем немного. Стоит начать экономить!");
         }
+        return moneyBeforeSalary;
     }
 
-    public static void showAllExpenses(double[] expenses) {
+    public static void printAllExpenses(double[] expenses) {
         for (int i = 0; i < expenses.length; i++) {
             System.out.println("День " + (i + 1) + ". Потрачено " + expenses[i] + " рублей");
         }
     }
 
-    public static void getMaxExpense(double[] expenses) {
+    public static double findMaxExpense(double[] expenses) {
         double maxExpense = 0;
         for (int i = 0; i < expenses.length; i++) {
             if (expenses[i] > maxExpense) {
                 maxExpense = expenses[i];
             }
         }
-        System.out.println("Самая большая сумма расходов на этой неделе составила " + maxExpense + " руб.");
+        return maxExpense;
     }
+
 }
