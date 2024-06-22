@@ -9,7 +9,6 @@ public class Converter {
         rateCNY = cny;
     }
 
-
     void convert(double rubles, int currency) {
         if (currency == 1) {
             System.out.println("Ваши сбережения в долларах: " + rubles / rateUSD);

@@ -6,6 +6,7 @@ public class Practicum {
 
         Scanner scanner = new Scanner(System.in);
         Converter converter = new Converter (94.8, 103.8, 13.1);
+        DinnerAdvisor dinnerAdvisor = new DinnerAdvisor();
 
         System.out.println("Сколько денег у вас осталось до зарплаты?");
         double moneyBeforeSalary = scanner.nextDouble();
@@ -23,7 +24,7 @@ public class Practicum {
                 int currency = scanner.nextInt();
                 converter.convert(moneyBeforeSalary, currency);
             } else if (command == 2) {
-                getAdvice(moneyBeforeSalary, daysBeforeSalary);
+                dinnerAdvisor.getAdvice(moneyBeforeSalary, daysBeforeSalary);
             } else if (command == 3) {
                 moneyBeforeSalary = saveExpense(scanner, moneyBeforeSalary, expenses);
             } else if (command == 4) {
@@ -48,30 +49,6 @@ public class Practicum {
         System.out.println("4 - Показать траты за неделю");
         System.out.println("5 - Показать самую большую сумму расходов за неделю");
         System.out.println("0 - Выход");
-    }
-
-    public static void getAdvice(double moneyBeforeSalary, int daysBeforeSalary) {
-        if (moneyBeforeSalary < 3000) {
-            System.out.println("Сегодня лучше поесть дома. Экономьте, и вы дотянете до зарплаты!");
-        } else if (moneyBeforeSalary < 10000){
-            if (daysBeforeSalary < 10) {
-                System.out.println("Можно заказать пиццу!");
-            } else {
-                System.out.println("Сегодня лучше поесть дома. Экономьте, и вы дотянете до зарплаты!");
-            }
-        } else if (moneyBeforeSalary < 30000) {
-            if (daysBeforeSalary < 10) {
-                System.out.println("Неплохо! Сегодня можно поужинать в кафе.");
-            } else {
-                System.out.println("Можно заказать пиццу!");
-            }
-        } else {
-            if (daysBeforeSalary < 10) {
-                System.out.println("Отлично! Можно сходить в ресторан.");
-            } else {
-                System.out.println("Неплохо! Сегодня можно поужинать в кафе.");
-            }
-        }
     }
 
     public static double saveExpense(Scanner scanner, double moneyBeforeSalary, double[] expenses) {
