@@ -5,6 +5,7 @@ public class Practicum {
         double[] expenses = new double[7];
 
         Scanner scanner = new Scanner(System.in);
+        Converter converter = new Converter (94.8, 103.8, 13.1);
 
         System.out.println("Сколько денег у вас осталось до зарплаты?");
         double moneyBeforeSalary = scanner.nextDouble();
@@ -17,7 +18,10 @@ public class Practicum {
             int command = scanner.nextInt();
 
             if (command == 1) {
-                convert(scanner, moneyBeforeSalary);
+                System.out.println("Ваши сбережения: " + moneyBeforeSalary + " RUB");
+                System.out.println("В какую валюту хотите конвертировать? Доступные варианты: 1 - USD, 2 - EUR, 3 - CNY.");
+                int currency = scanner.nextInt();
+                converter.convert(moneyBeforeSalary, currency);
             } else if (command == 2) {
                 getAdvice(moneyBeforeSalary, daysBeforeSalary);
             } else if (command == 3) {
@@ -44,25 +48,6 @@ public class Practicum {
         System.out.println("4 - Показать траты за неделю");
         System.out.println("5 - Показать самую большую сумму расходов за неделю");
         System.out.println("0 - Выход");
-    }
-
-    public static void convert(Scanner scanner, double moneyBeforeSalary) {
-        double rateUSD = 94.8;
-        double rateEUR = 103.8;
-        double rateCNY = 13.1;
-
-        System.out.println("Ваши сбережения: " + moneyBeforeSalary + " RUB");
-        System.out.println("В какую валюту хотите конвертировать? Доступные варианты: 1 - USD, 2 - EUR, 3 - CNY.");
-        int currency = scanner.nextInt();
-        if (currency == 1) {
-            System.out.println("Ваши сбережения в долларах: " + moneyBeforeSalary / rateUSD);
-        } else if (currency == 2) {
-            System.out.println("Ваши сбережения в евро: " + moneyBeforeSalary / rateEUR);
-        } else if (currency == 3) {
-            System.out.println("Ваши сбережения в юанях: " + moneyBeforeSalary / rateCNY);
-        } else {
-            System.out.println("Введена неизвестная валюта.");
-        }
     }
 
     public static void getAdvice(double moneyBeforeSalary, int daysBeforeSalary) {
