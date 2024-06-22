@@ -2,11 +2,11 @@ import java.util.Scanner;
 
 public class Practicum {
     public static void main(String[] args) {
-        double[] expenses = new double[7];
 
         Scanner scanner = new Scanner(System.in);
         Converter converter = new Converter (94.8, 103.8, 13.1);
         DinnerAdvisor dinnerAdvisor = new DinnerAdvisor();
+        ExpensesManager expensesManager = new ExpensesManager();
 
         System.out.println("Сколько денег у вас осталось до зарплаты?");
         double moneyBeforeSalary = scanner.nextDouble();
@@ -26,12 +26,15 @@ public class Practicum {
             } else if (command == 2) {
                 dinnerAdvisor.getAdvice(moneyBeforeSalary, daysBeforeSalary);
             } else if (command == 3) {
-                moneyBeforeSalary = saveExpense(scanner, moneyBeforeSalary, expenses);
+                System.out.println("За какой день вы хотите ввести трату: 1-ПН, 2-ВТ, 3-СР, 4-ЧТ, 5-ПТ, 6-СБ, 7-ВС?");
+                int day = scanner.nextInt();
+                System.out.println("Введите размер траты:");
+                double expense = scanner.nextDouble();
+                moneyBeforeSalary = expensesManager.saveExpense(moneyBeforeSalary, expense, day);
             } else if (command == 4) {
-                printAllExpenses(expenses);
+                expensesManager.printAllExpenses();
             } else if (command == 5) {
-                double maxExpense = findMaxExpense(expenses);
-                System.out.println("Самая большая сумма расходов на этой неделе составила " + maxExpense + " руб.");
+                System.out.println("Самая большая сумма расходов на этой неделе составила " + expensesManager.findMaxExpense() + " руб.");
             } else if (command == 0) {
                 System.out.println("Выход");
                 break;
@@ -50,35 +53,4 @@ public class Practicum {
         System.out.println("5 - Показать самую большую сумму расходов за неделю");
         System.out.println("0 - Выход");
     }
-
-    public static double saveExpense(Scanner scanner, double moneyBeforeSalary, double[] expenses) {
-        System.out.println("За какой день вы хотите ввести трату: 1-ПН, 2-ВТ, 3-СР, 4-ЧТ, 5-ПТ, 6-СБ, 7-ВС?");
-        int day = scanner.nextInt();
-        System.out.println("Введите размер траты:");
-        double expense = scanner.nextDouble();
-        moneyBeforeSalary = moneyBeforeSalary - expense;
-        expenses[day - 1] = expenses[day - 1] + expense;
-        System.out.println("Значение сохранено! Ваш текущий баланс в рублях: " + moneyBeforeSalary);
-        if (moneyBeforeSalary < 1000) {
-            System.out.println("На вашем счету осталось совсем немного. Стоит начать экономить!");
-        }
-        return moneyBeforeSalary;
-    }
-
-    public static void printAllExpenses(double[] expenses) {
-        for (int i = 0; i < expenses.length; i++) {
-            System.out.println("День " + (i + 1) + ". Потрачено " + expenses[i] + " рублей");
-        }
-    }
-
-    public static double findMaxExpense(double[] expenses) {
-        double maxExpense = 0;
-        for (int i = 0; i < expenses.length; i++) {
-            if (expenses[i] > maxExpense) {
-                maxExpense = expenses[i];
-            }
-        }
-        return maxExpense;
-    }
-
 }
